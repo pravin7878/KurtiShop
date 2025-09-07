@@ -1,8 +1,12 @@
 // ProductDetails.jsx
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../app/slices/cartSlice";
+
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const product = location.state;
@@ -17,28 +21,29 @@ const ProductDetails = () => {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6 py-10 mt-10">
+    <main className="min-h-screen bg-gray-50 px-10 py-18">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-        
+
         {/* Product Images */}
         <div>
-          <img
+         <div className="h-[400px] pb-5">
+           <img
             src={selectedImage}
             alt={product.name}
-            className="w-full h-[500px] object-cover rounded-lg shadow-md mb-4"
+            className="w-full h-full object-cover rounded-lg shadow-md mb-4"
           />
-          <div className="flex gap-3 overflow-x-auto">
+         </div>
+          <div className="flex flex-wrap gap-3">
             {product.images.map((img, index) => (
               <img
                 key={index}
                 src={img}
                 alt={`Preview ${index}`}
                 onClick={() => setSelectedImage(img)}
-                className={`w-24 h-24 object-cover rounded-md border cursor-pointer transition-transform duration-200 ${
-                  selectedImage === img
+                className={`w-24 h-24 object-cover rounded-md border cursor-pointer transition-transform duration-200 ${selectedImage === img
                     ? "border-black scale-105"
                     : "border-gray-300 hover:scale-105"
-                }`}
+                  }`}
               />
             ))}
           </div>
@@ -72,12 +77,26 @@ const ProductDetails = () => {
 
           {/* Action Buttons */}
           <div className="flex gap-4 mt-4">
-            <button className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition">
+            <button
+              className="bg-black cursor-pointer text-white px-6 py-3 rounded-md hover:bg-gray-800 transition"
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    id: product.id,
+                    name: product.name,
+                    image: product.images[0],
+                    price: product.price,
+                    qty: 1,
+                    countInStock: product.countInStock,
+                  })
+                )
+              }
+            >
               Add to Cart
             </button>
             <button
               onClick={() => navigate(-1)}
-              className="border border-gray-400 px-6 py-3 rounded-md hover:bg-gray-100 transition"
+              className="border border-gray-400 px-6 py-3 cursor-pointer rounded-md hover:bg-gray-100 transition"
             >
               Back
             </button>

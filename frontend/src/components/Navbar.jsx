@@ -4,9 +4,16 @@ import { CiSearch } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { FaCartPlus } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi"; // hamburger icons
+import { useSelector } from "react-redux";
+
+
+
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItems } = useSelector((state) => state.cart);
+console.log(cartItems);
+
 
   const navLinks = [
     { path: "/shop", label: "Shop" },
@@ -49,12 +56,22 @@ function Navbar() {
               <CiSearch size={20} />
               <span className="hidden md:block">Search</span>
             </button>
-            <Link to="/cart" className="relative">
+            {/* <Link to="/cart" className="relative">
               <FaCartPlus size={22} />
               <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full px-1">
                 0
               </span>
-            </Link>
+            </Link> */}
+
+            <div className="relative">
+              <Link to="/cart"><FaCartPlus size={22} />
+              {cartItems?.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                  {cartItems.length}
+                </span>
+              )}
+              </Link>
+            </div>
 
             {/* Mobile Hamburger */}
             <button
