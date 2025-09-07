@@ -1,8 +1,8 @@
-const Product = require('../models/product.js');
+import Product from "../models/product.js";
 
 // @desc    Get all products
 // @route   GET /api/products
-exports.getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
     res.json(products);
@@ -13,13 +13,13 @@ exports.getProducts = async (req, res) => {
 
 // @desc    Get single product by ID
 // @route   GET /api/products/:id
-exports.getProductById = async (req, res) => {
+export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
       res.json(product);
     } else {
-      res.status(404).json({ message: 'Product not found' });
+      res.status(404).json({ message: "Product not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -28,8 +28,7 @@ exports.getProductById = async (req, res) => {
 
 // @desc    Create new product
 // @route   POST /api/products
-exports.createProduct = async (req, res) => {
-  console.log(req.body)
+export const createProduct = async (req, res) => {
   try {
     const {
       name,
@@ -38,7 +37,7 @@ exports.createProduct = async (req, res) => {
       category,
       brand,
       countInStock,
-      images, 
+      images,
     } = req.body;
 
     const product = new Product({
@@ -48,7 +47,7 @@ exports.createProduct = async (req, res) => {
       category,
       brand,
       countInStock,
-      images, 
+      images,
     });
 
     const createdProduct = await product.save();
@@ -60,7 +59,7 @@ exports.createProduct = async (req, res) => {
 
 // @desc    Update product
 // @route   PUT /api/products/:id
-exports.updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
   try {
     const {
       name,
@@ -69,7 +68,7 @@ exports.updateProduct = async (req, res) => {
       category,
       brand,
       countInStock,
-      images, 
+      images,
     } = req.body;
 
     const product = await Product.findById(req.params.id);
@@ -81,12 +80,13 @@ exports.updateProduct = async (req, res) => {
       product.category = category || product.category;
       product.brand = brand || product.brand;
       product.countInStock = countInStock || product.countInStock;
-      product.images = images && images.length > 0 ? images : product.images; // ✅ update only if new images provided
+      product.images =
+        images && images.length > 0 ? images : product.images;
 
       const updatedProduct = await product.save();
       res.json(updatedProduct);
     } else {
-      res.status(404).json({ message: 'Product not found' });
+      res.status(404).json({ message: "Product not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -95,18 +95,17 @@ exports.updateProduct = async (req, res) => {
 
 // @desc    Delete product
 // @route   DELETE /api/products/:id
-exports.deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     await Product.deleteOne({ _id: req.params.id });
-    res.json({ message: 'Product removed successfully' });
+    res.json({ message: "Product removed successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-

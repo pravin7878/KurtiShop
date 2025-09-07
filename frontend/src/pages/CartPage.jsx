@@ -1,15 +1,28 @@
 // Cart.jsx
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQty, clearCart } from "../app/slices/cartSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
     0
   );
+
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    navigate("/checkout", {state : {cartItems ,totalPrice}});
+  };
+
 
   return (
     <main className="min-h-screen p-4 sm:p-6 bg-gray-50">
@@ -90,7 +103,7 @@ const Cart = () => {
                   <span>₹{totalPrice.toFixed(2)}</span>
                 </p>
               </div>
-              <button className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition">
+              <button disabled={cartItems.length === 0} onClick={handleCheckout} className="w-full cursor-pointer bg-black text-white py-3 rounded-md hover:bg-gray-800 transition">
                 Proceed to Checkout
               </button>
               <button

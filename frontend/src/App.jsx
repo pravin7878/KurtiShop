@@ -16,6 +16,7 @@ import Cart from './pages/CartPage'
 import ScrollToTop from './components/ScrollToTop'
 import Products from "./pages/Products"
 import NotFound from './pages/NotFound'
+import Checkout from './pages/CheckoutPage'
 
 function UserLayout() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/shop" element={< Products/>} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
 
         {/* Admin Side */}
