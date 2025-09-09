@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import Footer from './components/Footer'
 import ProductForm from './components/admin/AddProduct'
 import AdminLayout from './components/admin/Layout'
-import {Products as adminProductsPage} from './components/admin/Products'
+import {Products as AdminProductsPage} from './components/admin/Products'
 import { AllProducts } from './components/admin/AllProducts'
 import { Orders } from './components/admin/Orders'
 import Dashboard from "./components/admin/Deshboard"
@@ -47,7 +47,7 @@ function App() {
         {/* Admin Side */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="products" element={<adminProductsPage />}>
+          <Route path="products" element={<AdminProductsPage />}>
             <Route index element={<AllProducts />} />
             <Route path="add" element={<ProductForm />} />
             <Route path="edit/:id" element={<EditProduct />} />

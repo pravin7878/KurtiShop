@@ -14,7 +14,7 @@ const totalPrice = cartItems.reduce(
   );
 
 
-console.log(location.state);
+console.log(totalPrice);
 
 
 
