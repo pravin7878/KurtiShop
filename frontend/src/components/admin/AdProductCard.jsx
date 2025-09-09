@@ -16,7 +16,7 @@ export const AdProductCard = ({product,handleDelete,handleEdit}) => {
 
             {/* Content */}
             <div className="p-4 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold text-gray-800 truncate">
+                <h3 className="text-md font-semibold text-gray-800">
                     {product.name}
                 </h3>
                 <p className="text-blue-600 font-bold mt-1">₹{product.price}</p>

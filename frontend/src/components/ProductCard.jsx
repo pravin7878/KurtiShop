@@ -31,7 +31,7 @@ function ProductCard({ product }) {
 
         {/* Product Info */}
         <div className="mt-3 px-1">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-800 truncate w-full">
+          <h3 className="text-base sm:text-md font-semibold text-gray-800 truncate w-full">
             {product?.name}
           </h3>
           <p className="text-gray-500 text-xs sm:text-sm mt-1">{product?.brand}</p>
