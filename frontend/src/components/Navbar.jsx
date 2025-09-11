@@ -30,7 +30,7 @@ console.log(cartItems);
         <div className="flex justify-between items-center h-16">
           {/* Left - Logo */}
           <Link to="/" className="text-2xl font-bold tracking-wide">
-            LOGO
+            DUGGU FASHION
           </Link>
 
           {/* Desktop Nav Links */}
