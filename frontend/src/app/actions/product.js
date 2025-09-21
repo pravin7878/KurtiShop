@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-const backendUri = import.meta.env.VITE_BACKEND_URI;
+const backendUri = import.meta.env.VITE_BACKEND_URI || 'http://localhost:5000';
 
 
 export const fetchProducts = createAsyncThunk("FETCH/PRODUCT",

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import toast, { Toaster } from "react-hot-toast"
 
-const BACKEND_URI = import.meta.env.VITE_BACKEND_URI
+const BACKEND_URI = import.meta.env.VITE_BACKEND_URI || 'http://localhost:5000'
 
 const ProductForm = ({ initialData = null, onSubmit }) => {
   const [imageUrls, setImageUrls] = useState(initialData?.images || [])

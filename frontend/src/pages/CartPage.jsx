@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Debug: Log cart items to see their structure
+  console.log("Cart items:", cartItems);
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
@@ -45,9 +48,12 @@ const Cart = () => {
                   {/* Product Info */}
                   <div className="flex items-center gap-4">
                     <img
-                      src={item.image || "https://via.placeholder.com/150"}
+                      src={item.image || item.images?.[0] || "https://via.placeholder.com/150"}
                       alt={item.name}
                       className="w-24 h-24 sm:w-20 sm:h-20 object-cover rounded-md border"
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/150";
+                      }}
                     />
                     <div>
                       <h2 className="font-semibold text-gray-800 truncate max-w-[180px] sm:max-w-[220px]">

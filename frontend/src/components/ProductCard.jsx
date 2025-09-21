@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../app/slices/cartSlice";
+import { addToCart, clearCart } from "../app/slices/cartSlice";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -8,6 +8,13 @@ function ProductCard({ product }) {
 
   const handleViewProduct = (product) => {
     navigate(`/products/${product._id}`, { state: product });
+  };
+
+  const handleBuyNow = (product) => {
+   
+    // Navigate to checkout
+    navigate('/checkout' , {state : [{  ...product,
+    qty: 1,}]});
   };
 
   return (
@@ -46,10 +53,10 @@ function ProductCard({ product }) {
       {/* Buttons */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 sm:px-6 justify-between mt-4">
         <button
-          onClick={() => { }}
+          onClick={() => handleBuyNow(product)}
           className="w-full sm:w-auto px-4 py-2 bg-gray-800 text-white rounded-lg cursor-pointer text-sm hover:bg-gray-900 transition"
         >
-          Buy
+          Buy Now
         </button>
         <button
           className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white cursor-pointer rounded-lg text-sm hover:bg-blue-700 transition"
@@ -57,6 +64,7 @@ function ProductCard({ product }) {
             dispatch(
               addToCart({
                 ...product,
+                image: product.images?.[0] || product.image,
                 qty: 1,
               })
             )

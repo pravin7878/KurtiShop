@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../app/slices/cartSlice";
+import { addToCart, clearCart } from "../app/slices/cartSlice";
 
 
 const ProductDetails = () => {
@@ -11,6 +11,14 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const product = location.state;
   const [selectedImage, setSelectedImage] = useState(product?.images?.[0]);
+
+  const handleBuyNow = (product) => {
+   
+    // Navigate to checkout
+    navigate('/checkout' , {state : [{  ...product,
+    qty: 1,}]});
+  };
+
 
   if (!product) {
     return (
@@ -78,16 +86,26 @@ const ProductDetails = () => {
           {/* Action Buttons */}
           <div className="flex gap-4 mt-4">
             <button
-              className="bg-black cursor-pointer text-white px-6 py-3 rounded-md hover:bg-gray-800 transition"
+              className="bg-gray-800 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-gray-900 transition"
+              onClick={() => handleBuyNow(product)}
+            >
+              Buy Now
+            </button>
+            <button
+              className="bg-blue-600 cursor-pointer text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
               onClick={() =>
                 dispatch(
                   addToCart({
                     id: product.id,
+                    _id: product._id,
                     name: product.name,
                     image: product.images[0],
+                    images: product.images,
                     price: product.price,
                     qty: 1,
                     countInStock: product.countInStock,
+                    brand: product.brand,
+                    category: product.category,
                   })
                 )
               }

@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // if you have authentication
+      type: String, // Clerk user ID
       required: false,
     },
     cartItems: [
@@ -37,6 +36,15 @@ const orderSchema = new mongoose.Schema(
     totalPrice: {
       type: Number,
       required: true,
+    },
+    orderStatus: {
+      type: String,
+      enum: ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'],
+      default: 'pending',
+    },
+    notes: {
+      type: String,
+      default: '',
     },
   },
   { timestamps: true }

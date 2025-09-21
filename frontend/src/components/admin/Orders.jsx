@@ -1,7 +1,6 @@
 import React from 'react'
+import OrdersList from './OrdersList'
 
 export const Orders = () => {
-  return (
-    <div>Orders</div>
-  )
+  return <OrdersList />
 }

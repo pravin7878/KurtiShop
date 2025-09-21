@@ -17,6 +17,8 @@ import ScrollToTop from './components/ScrollToTop'
 import Products from "./pages/Products"
 import NotFound from './pages/NotFound'
 import Checkout from './pages/CheckoutPage'
+import Profile from './pages/Profile'
+import { ClerkProviderWrapper, SignInComponent, SignUpComponent } from './providers/ClerkProvider'
 
 function UserLayout() {
   return (
@@ -30,32 +32,37 @@ function UserLayout() {
 
 function App() {
   return (
-    <div>
-      <Toaster position="top-right" reverseOrder={false} />
-      <ScrollToTop/>
-      <Routes>
-        {/* User Side */}
-        <Route element={<UserLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/shop" element={< Products/>} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/checkout" element={<Checkout />} />
-        </Route>
-
-        {/* Admin Side */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<AdminProductsPage />}>
-            <Route index element={<AllProducts />} />
-            <Route path="add" element={<ProductForm />} />
-            <Route path="edit/:id" element={<EditProduct />} />
+    <ClerkProviderWrapper>
+      <div>
+        <Toaster position="top-right" reverseOrder={false} />
+        <ScrollToTop/>
+        <Routes>
+          {/* User Side */}
+          <Route element={<UserLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/shop" element={< Products/>} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/signin" element={<SignInComponent />} />
+            <Route path="/signup" element={<SignUpComponent />} />
           </Route>
-          <Route path="orders" element={<Orders />} />
-        </Route>
-      </Routes>
-    </div>
+
+          {/* Admin Side */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<AdminProductsPage />}>
+              <Route index element={<AllProducts />} />
+              <Route path="add" element={<ProductForm />} />
+              <Route path="edit/:id" element={<EditProduct />} />
+            </Route>
+            <Route path="orders" element={<Orders />} />
+          </Route>
+        </Routes>
+      </div>
+    </ClerkProviderWrapper>
   )
 }
 

@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaCartPlus } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi"; // hamburger icons
 import { useSelector } from "react-redux";
+import { useAuth, UserButtonComponent } from "../providers/ClerkProvider";
 
 
 
@@ -12,7 +13,8 @@ import { useSelector } from "react-redux";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
-console.log(cartItems);
+  const { isSignedIn, isLoaded } = useAuth();
+  console.log(cartItems);
 
 
   const navLinks = [
@@ -47,29 +49,50 @@ console.log(cartItems);
           </div>
 
           {/* Right - Icons */}
-          <div className="flex items-center gap-6">
-            <Link to="/login" className="flex items-center gap-1 hover:text-black">
-              <CgProfile size={20} />
-              <span className="hidden md:block">Login</span>
-            </Link>
-            <button className="flex items-center gap-1 hover:text-black">
-              <CiSearch size={20} />
+          <div className="flex items-center gap-3 md:gap-6">
+            <button className="flex items-center cursor-pointer gap-1 hover:text-black">
+              <CiSearch size={23} />
               <span className="hidden md:block">Search</span>
             </button>
-            {/* <Link to="/cart" className="relative">
-              <FaCartPlus size={22} />
-              <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full px-1">
-                0
-              </span>
-            </Link> */}
+
+            {isLoaded && (
+              isSignedIn ? (
+                <div className="flex items-center gap-4">
+                  {/* Mobile: Simple profile link */}
+                  <div className="md:hidden flex justify-center items-center pt-2">
+                   <button className="">
+                   <UserButtonComponent />
+                   </button>
+                  </div>
+                  
+                  {/* Desktop: My Orders + UserButton */}
+                  <div className="hidden md:flex items-center gap-4">
+                    <Link to="/profile" className="flex items-center gap-1 text-gray-700 hover:text-black">
+                      {/* <CgProfile size={20} /> */}
+                      <span>My Orders</span>
+                    </Link>
+                   <UserButtonComponent />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-4">
+                  <Link to="/signin" className="flex items-center gap-1 hover:text-black">
+                    <CgProfile size={20} />
+                    <span className="hidden md:block">Sign In</span>
+                  </Link>
+                </div>
+              )
+            )}
+
+
 
             <div className="relative">
               <Link to="/cart"><FaCartPlus size={22} />
-              {cartItems?.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                  {cartItems.length}
-                </span>
-              )}
+                {cartItems?.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    {cartItems.length}
+                  </span>
+                )}
               </Link>
             </div>
 
@@ -98,6 +121,16 @@ console.log(cartItems);
                 {item.label}
               </Link>
             ))}
+            {/* Add profile link to mobile menu */}
+            {isSignedIn && (
+              <Link
+                to="/profile"
+                className="text-gray-700 hover:text-black transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                My Profile
+              </Link>
+            )}
           </div>
         </div>
       )}

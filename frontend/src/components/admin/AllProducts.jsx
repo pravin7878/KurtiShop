@@ -9,7 +9,7 @@ export const AllProducts = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const navigate = useNavigate()
-  const backendUri = import.meta.env.VITE_BACKEND_URI
+  const backendUri = import.meta.env.VITE_BACKEND_URI || 'http://localhost:5000'
 
   const handleDelete = async (id) => {
     try {

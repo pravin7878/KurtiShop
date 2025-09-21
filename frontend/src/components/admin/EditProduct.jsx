@@ -8,7 +8,7 @@ export const EditProduct = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const backendUri = import.meta.env.VITE_BACKEND_URI;
+  const backendUri = import.meta.env.VITE_BACKEND_URI || 'http://localhost:5000';
 
   const [product, setProduct] = useState(location.state?.product || null);
   const [loading, setLoading] = useState(!location.state?.product);
