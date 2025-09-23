@@ -134,11 +134,11 @@ function Profile() {
                           <div className="text-right">
                             <p className="font-semibold">₹{order.totalPrice}</p>
                             <p className={`text-sm ${
-                              order.paymentInfo?.status === 'paid' 
+                              order.orderStatus !== 'Pending' 
                                 ? 'text-green-600' 
                                 : 'text-yellow-600'
                             }`}>
-                              {order.paymentInfo?.status || 'Pending'}
+                              {order.orderStatus || 'Pending'}
                             </p>
                           </div>
                         </div>

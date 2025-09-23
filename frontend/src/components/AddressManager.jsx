@@ -30,10 +30,6 @@ function AddressManager({ onAddressSelect, selectedAddress, showSelection = fals
   const fetchAddresses = async () => {
     try {
       setLoading(true);
-      console.log('Fetching addresses for user:', user.id);
-      console.log('Backend URL:', baseUrl);
-      
-      // First, ensure user exists in database
       const createResponse = await fetch(`${baseUrl}/api/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,7 +58,7 @@ function AddressManager({ onAddressSelect, selectedAddress, showSelection = fals
       setAddresses(userData.addresses || []);
     } catch (error) {
       console.error('Error fetching addresses:', error);
-      alert(`Error: ${error.message}`);
+      
     } finally {
       setLoading(false);
     }
