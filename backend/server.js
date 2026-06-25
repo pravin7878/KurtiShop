@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 
+
+
 import connectDB from "./config/db.js";
 import uploadRoutes from "./routes/upload.js";
 import productRouter from "./routes/product.js";
